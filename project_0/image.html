@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Image Search</title>
+    </head>
+    <body>
+        <!-- Need to make this one link go into upper right hand corner -->
+        <a href="index.html">Google Search</a>
+
+        <form action="https://google.com/search">
+            
+            <input type="text" name="q">
+            <!--
+                Used a "hidden" input to append the correct GET parameter
+                "hidden" type provides input data that the user can't mess with, 
+                in this case to ensure it goes to image results page
+            -->
+            <input type="hidden" name="tbm" value="isch">
+            <input type="submit" value="Image Search">
+        </form>
+    </body>
+</html>

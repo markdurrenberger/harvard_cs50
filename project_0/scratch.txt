@@ -1,0 +1,43 @@
+Google main page search:
+
+https://www.google.com/search?
+q=bananas
+&source=lmns
+&bih=525
+&biw=1163
+&hl=en&sa=X
+&ved=2ahUKEwiissCdld3uAhVJWqwKHVycBP8Q_AUoAHoECAEQAA
+
+--
+Google Image Results:
+https://www.google.com/search?
+q=bananas
+&hl=en
+&sxsrf=ALeKk00r8OyRdEVc35OZQCgbdk3nODnbEw:1612886174924
+&source=lnms
+&tbm=isch <-- this must be the one for Image results
+&sa=X
+&ved=2ahUKEwjTwpOcld3uAhUQOq0KHcHKCkQQ_AUoAXoECBQQAw
+&cshid=1612886259070275
+&biw=1163
+&bih=525
+
+--
+Google shopping results:
+https://www.google.com/search?
+q=bananas
+&source=lmns
+&tbm=shop <-- HEre it is
+&bih=525
+&biw=1163
+&hl=en
+&sa=X
+&ved=2ahUKEwjSmIjLld3uAhVc9qwKHRYQBLUQ_AUoAnoECAEQAg
+--
+
+Feeling lucky part:
+added the button, but can't figure out how to add fuctionality. Two parts:
+- one, simply how to make the button do something different (the html)
+	Figured this out - formaction attribute. Nice!
+- two, how to navigate directly to the page that comes up first from Google search results...
+....Now to figure this out
