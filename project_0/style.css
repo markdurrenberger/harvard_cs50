@@ -24,8 +24,18 @@
 
 #adv-button {
     margin-left: 650px;
-    background-color: blue;
+    background-color: dodgerblue;
     color: white;
+    padding: 9px;
+    font-weight: bold;
+    border: 3px;
+    border-radius: 2px;
+}
+
+input[type=submit] {
+    padding: 8px 15px 8px 15px;
+    border: 3px;
+    margin: 22px 15px 22px 15px;
 }
 
 
