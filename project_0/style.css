@@ -1,0 +1,31 @@
+.top-menu {
+    text-align: right;
+    color: blue;
+}
+
+.search-bar-div {
+    margin-top: 115px;
+    text-align: center;
+}
+
+
+.advanced-search-bar {
+    width: 550px;
+    margin: 15px;
+    font-size: large;
+}
+
+.search-bar {
+    border-radius: 25px;
+    padding: 10px;
+    padding-left: 20px;
+    font-size: large;
+}
+
+#adv-button {
+    margin-left: 650px;
+    background-color: blue;
+    color: white;
+}
+
+

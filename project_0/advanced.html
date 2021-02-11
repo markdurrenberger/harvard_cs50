@@ -11,16 +11,45 @@
         </div>        
          
         <!--Try using flexbox or grid with the below to get the text left aligned and the search bars centered-->
-        <div class="search-bar-div"></div>
+        <!-- A Table works! Doy-->
         <h3>Find pages with...</h3>
+        <table>
+            <!--The names below are for the various parameters used by Google Advanced search-->
             <form action="https://google.com/search" class="search-bar" style="font-size:medium">
-                <!--The names below are for the various parameters used by Google Advanced search-->
-                all these words: <input type="text" name="as_q" class="advanced-search-bar"><br> 
-                this exact word or phrase: <input type="test" name="as_epq" class="advanced-search-bar"><br>
-                any of these words: <input type="text" name="as_oq" class="advanced-search-bar"><br>
-                none of these words: <input type="text" name="as_eq" class="advanced-search-bar"><br>
-                <input type="submit" value="Advanced Search">
-            </form>
-        </div>
+                <tr>
+                    <td>
+                        all these words: 
+                    </td>
+                    <td>
+                        <input type="text" name="as_q" class="advanced-search-bar">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        this exact word or phrase: 
+                    </td>
+                    <td>
+                        <input type="test" name="as_epq" class="advanced-search-bar">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        any of these words: 
+                    </td>
+                    <td>
+                        <input type="text" name="as_oq" class="advanced-search-bar">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        none of these words: 
+                    </td>
+                    <td>
+                        <input type="text" name="as_eq" class="advanced-search-bar">
+                    </td>
+                </tr>
+        </table>
+        <input type="submit" value="Advanced Search" id="adv-button">
+    </form>
     </body>
 </html>
