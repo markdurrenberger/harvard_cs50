@@ -2,20 +2,25 @@
 <html lang="en">
     <head>
         <title>Advanced Search</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <!-- Need to make this one link go into upper right hand corner -->
-        <a href="index.html">Google Search</a>
-
-        <!--Need to explore google advanced results url bar to better understand parameters-->
+        <div class="top-menu">
+            <a href="index.html">Google Search</a>
+        </div>        
+         
+        <!--Try using flexbox or grid with the below to get the text left aligned and the search bars centered-->
+        <div class="search-bar-div"></div>
         <h3>Find pages with...</h3>
-        all these words:<br>
-        this exact word or phrase:<br>
-        any of these words:<br>
-        none of these words:<br>
-        <form action="https://google.com/search">
-            <input type="text" name="q">
-            <input type="submit" value="Advanced Search">
-        </form>
+            <form action="https://google.com/search" class="search-bar" style="font-size:medium">
+                <!--The names below are for the various parameters used by Google Advanced search-->
+                all these words: <input type="text" name="as_q" class="advanced-search-bar"><br> 
+                this exact word or phrase: <input type="test" name="as_epq" class="advanced-search-bar"><br>
+                any of these words: <input type="text" name="as_oq" class="advanced-search-bar"><br>
+                none of these words: <input type="text" name="as_eq" class="advanced-search-bar"><br>
+                <input type="submit" value="Advanced Search">
+            </form>
+        </div>
     </body>
 </html>

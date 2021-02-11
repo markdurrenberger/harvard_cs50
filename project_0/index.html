@@ -2,22 +2,27 @@
 <html lang="en">
     <head>
         <title>Search</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <!-- Need to make these go into upper right hand corner -->
         <!-- Could make a class for these, then use that on all pages-->
-        <a href="image.html">Image Search</a>
-        <a href="advanced.html">Advanced Search</a>
+        <div class='top-menu'>
+            <a href="image.html">Image Search</a>
+            <a href="advanced.html">Advanced Search</a>
+        </div>
 
         <!--Formatting note: this should be centered, with the button beneath the input bar. Input should have rounded corners -->
-        <form action="https://google.com/search">
-            <input type="text" name="q">
-            <input type="submit" value="Google Search">
-            <!--formaction= allows me to specify another site.
+        <div class="search-bar-div">
+            <form action="https://google.com/search">
+                <input type="text" name="q" size=65 class="search-bar"><br>
+                <input type="submit" value="Google Search">
+                <!--formaction= allows me to specify another site.
                 
-            Now just need to figure out the mechanics of how to determine which is first page of google results
-            and redirect there...-->
-            <input type="submit" value="I'm Feeling Lucky" formaction="https://markdurrenberger.com">
+                Now just need to figure out the mechanics of how to determine which is first page of google results
+                and redirect there...-->
+                <input type="submit" value="I'm Feeling Lucky" formaction="https://markdurrenberger.com">
+        </div>
         </form>
     </body>
 </html>
