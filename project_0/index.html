@@ -22,6 +22,10 @@
                 Now just need to figure out the mechanics of how to determine which is first page of google results
                 and redirect there...-->
                 <!--There is a GET parameter 'btnI' if set to 1 will give you that functionality!-->
+
+                <!--I found the solution online...add that parameter to the name attribute. Why does that work?
+                name attribute passes that as the name of that data field. So in something like this it gets passed as 
+                the GET parameter.-->
                 <input type="submit" value="I'm Feeling Lucky" formaction="https://google.com/search" name="btnI">
             </form>
         </div>
