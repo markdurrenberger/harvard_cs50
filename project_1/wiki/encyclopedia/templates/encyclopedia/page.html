@@ -4,7 +4,15 @@
     {{title}}
 {% endblock %}
 
+{% block nav %}
+<form>
+    <a href="{% url 'edit' %}">Edit Page</a>
+</form>
+{% endblock %}
+
 {% block body %}
     {{page}}
+
+
 
 {% endblock %}

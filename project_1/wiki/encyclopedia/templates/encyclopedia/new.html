@@ -1,0 +1,21 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    New Entry
+{% endblock %}
+
+{% block body %}
+    <h1>New Entry</h1>
+
+    Thank you for your help expanding our encyclopedia.<br><br>
+    <b>Please enter new entry information:</b>
+
+    <form>
+        <label for="title">Title: </label>
+        <input type="text" name="title" placeholder="Title">
+        <label for="entry">Entry info: </label>
+        <input type="textarea" name="entry" placeholder="Enter entry in markdown">
+
+    </form>
+
+{% endblock %}

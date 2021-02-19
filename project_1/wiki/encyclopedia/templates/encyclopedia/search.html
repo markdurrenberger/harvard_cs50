@@ -1,0 +1,23 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block body %}
+    <h1>Results Containing Your Search:</h1>
+    <!-- This loops through the results (passed from the search view context)
+    and displays a link for each (like how the index page works)-->
+    
+    {% if not results %}
+    <!--If results list is empty, i.e. no search results-->
+    There are no pages matching that search.
+    {% endif %}
+
+    <ul>
+    {% for result in results %}
+        <li><a href="{% url 'page' title=result %}">{{ result }}</a></li>
+    </ul>
+    {% endfor %}
+
+{% endblock %}

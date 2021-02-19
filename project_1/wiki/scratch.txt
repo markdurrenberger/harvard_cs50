@@ -1,0 +1,53 @@
+Title pages - 
+	how did he do the hello/name example?
+		I can use the same technique to make it load the proper page (if it's there)
+
+	I have the check for if entry exists working....but need to change all to .lower() so capitilization doesn;t
+		throw it off...[X]
+
+	[X] display the markdown content for entries that exist
+		[ ] how to display the markdown content as formatted HTML?
+
+Index page:
+[X] how to use the page path/view inside of the url for each entry?
+
+Search:
+All of the below will be made within the layout.html file
+[ ] accept search queries in search box
+
+	I started setting up a Django form for this....but got myself all in a jumble. Need to write out notes to myself
+	about what I was doing and what is happening in the lecture example.
+		....try walking through that task example myself
+
+	[X] return the page for an entry, if it exists
+		use the "page" view, passing title
+
+		[ ] it's working, but need to use the redirect thing, like with the random one below
+			explore the HttpResponseRedirect like from the taks example
+		[ ] Need to fix the size of the serch box, and get rid of the label....
+	[X] if it doesn't match an entry, return a list of all entries where the term is a substring
+		hmmm....
+	[X] clicking on the results from above takes the user to that page
+		should be able to use the concept from index page
+
+New Page:
+[X] set up a page and link to create new page
+	[X] create a form that takes in a title and has a text box for markdown info
+	[ ] how to add the functionality of receiving the form info?
+		review the section on forms from notes....
+
+Edit Page:
+[X] page with link set up
+	[ ] How to "get" the entry information for the page that sent to the edit page?
+		Right now it just goes to an "edit" page, so not sure how to pre-fill with existing entry info
+
+Random:
+[x] send user to a random page by clicking the random link
+	[ ] How to "redirect" the url so that it has the entry's url instead of simply "random"?
+
+Cleanup stuff:
+[ ] use redirects to fix the URLs of search and random when user gets sent to new page
+[ ] make searchbar fit the <div> area & remove label
+[ ] is there a more efficient way to use the {{searchbar}} variable in the layout.html file? (right now
+	I am passing it as context in every single view that renders a page)
+[ ] search results: the results are listed in all lowercase, how can I fix that?
