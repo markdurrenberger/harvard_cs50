@@ -5,14 +5,14 @@
 {% endblock %}
 
 {% block nav %}
-<form>
-    <a href="{% url 'edit' %}">Edit Page</a>
+<!-- How to make this include the title?-->
+<form action="{% url 'edit' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="title" value = {{title}}>
+    <button type="submit">Edit Page</button>
 </form>
 {% endblock %}
 
 {% block body %}
     {{page}}
-
-
-
 {% endblock %}

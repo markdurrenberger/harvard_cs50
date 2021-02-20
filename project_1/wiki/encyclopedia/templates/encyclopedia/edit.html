@@ -5,9 +5,15 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Edit</h1>
-<!-- This page needs a textarea that is prepopulated with the existing entry's information.
-Then the user should be able to make edits, then click a button to "save" which redirects the user
-back to the newly edited page for that entry.-->
-    You've reached the edit page.
+    <h1>Edit Entry - {{title}}</h1>
+
+    <form action="{% url 'edit_page_return' title={{title}} content={{content}} ">
+        {% csrf_token %}
+        <!-- Figured it out! See the views.py file edit view. Used an initial value assignment
+            that was passed as part of the context to the render() call. -->
+        {{ editentry }}
+
+        <button type="submit">Save Entry</button>
+    </form>
+
 {% endblock %}

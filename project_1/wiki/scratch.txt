@@ -6,14 +6,13 @@ Title pages -
 		throw it off...[X]
 
 	[X] display the markdown content for entries that exist
-		[ ] how to display the markdown content as formatted HTML?
 
 Index page:
 [X] how to use the page path/view inside of the url for each entry?
 
 Search:
 All of the below will be made within the layout.html file
-[ ] accept search queries in search box
+[X] accept search queries in search box
 
 	I started setting up a Django form for this....but got myself all in a jumble. Need to write out notes to myself
 	about what I was doing and what is happening in the lecture example.
@@ -21,10 +20,6 @@ All of the below will be made within the layout.html file
 
 	[X] return the page for an entry, if it exists
 		use the "page" view, passing title
-
-		[ ] it's working, but need to use the redirect thing, like with the random one below
-			explore the HttpResponseRedirect like from the taks example
-		[ ] Need to fix the size of the serch box, and get rid of the label....
 	[X] if it doesn't match an entry, return a list of all entries where the term is a substring
 		hmmm....
 	[X] clicking on the results from above takes the user to that page
@@ -33,20 +28,41 @@ All of the below will be made within the layout.html file
 New Page:
 [X] set up a page and link to create new page
 	[X] create a form that takes in a title and has a text box for markdown info
-	[ ] how to add the functionality of receiving the form info?
-		review the section on forms from notes....
+	[X] how to add the functionality of receiving the form info?
+		[X] replace my inputs with Django forms...
+			[X] create a class for NewPageForm
+	[X] how to save the form data to a .md that gets stored in the application?
+		Duh! using the util.new_entry() function
+
+	[X] If page already exists, send to an error page
 
 Edit Page:
 [X] page with link set up
-	[ ] How to "get" the entry information for the page that sent to the edit page?
+	[X] How to "get" the entry information for the page that sent to the edit page?
 		Right now it just goes to an "edit" page, so not sure how to pre-fill with existing entry info
+	[X] get the current md content to be the placeholder text in the form
+		I've got the title coming over...can't figure out the placeholder text
+			I think I need to look into classes in Python....need to somehow be able to pass the content information
+			into my Form object creation
+		Read more about Django forms too, that could help
+	[X] make the form edit existing contents - 
+	[ ] how to get it to save and then render?
+		Maybe using HTTPRedirect?
+PICK UP HERE>>>  Need to read more about the reverse and HTTPredirect functions from the examples
+
 
 Random:
 [x] send user to a random page by clicking the random link
-	[ ] How to "redirect" the url so that it has the entry's url instead of simply "random"?
+
+
+Markdown:
+[ ] how to display markdown content as formatted HTML?
 
 Cleanup stuff:
 [ ] use redirects to fix the URLs of search and random when user gets sent to new page
+	[ ] random
+	[ ] search
+	[ ] new > all need to have the redirected URL show
 [ ] make searchbar fit the <div> area & remove label
 [ ] is there a more efficient way to use the {{searchbar}} variable in the layout.html file? (right now
 	I am passing it as context in every single view that renders a page)

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
 
 from . import util
@@ -13,8 +13,32 @@ def index(request):
     })
 
 def page(request, title):
- 
-    ### Change this so all are made lower, so capitalization doesn't throw it off 
+    
+    # For when we are sent to the content page of a new entry from views.new
+    if request.method == "POST":
+        form = NewEntryForm(request.POST)
+
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            content = form.cleaned_data['content']
+
+            # If the entry already exists, send to error page
+            if title.lower() in [x.lower() for x in util.list_entries()]:
+                return render(request, "encyclopedia/error-existing-entry.html",{
+                    "searchbar": SearchBar()
+                })
+
+            # Otherwise, save that entry and then send to that page
+            else:
+                # Use existing util function to save the entry
+                util.save_entry(title, content)
+
+                return render(request, "encyclopedia/page.html", {
+                    'page':util.get_entry(title), "title":title,
+                    "searchbar": SearchBar()
+                })
+
+    # If it's just a normal "GET" request, run this and return the page (or error)
     if title.lower() in [x.lower() for x in util.list_entries()]:
         return render(request, "encyclopedia/page.html", {
             "page":util.get_entry(title), "title": title,
@@ -22,6 +46,7 @@ def page(request, title):
         })      
     else:
         return render(request, "encyclopedia/error.html")
+
 
 ### There has to be a better way to include this search on the layout.html without passing the context
 ### for every single other view
@@ -63,19 +88,41 @@ def search(request):
                 })
 
 
-        
+class NewEntryForm(forms.Form):
+    title = forms.CharField(label="Title")
+    content = forms.CharField(widget=forms.Textarea(attrs={
+        'placeholder':'Enter entry content in markdown...', 'rows':5, 'cols':20
+    }))
 
 def new(request):
     #For now just renders our blank new entry page
     return render(request, "encyclopedia/new.html", {
-        "searchbar": SearchBar()
+        "searchbar": SearchBar(), "newentry": NewEntryForm()
     })
 
+class EditEntryForm(forms.Form):
+    # Need to somehow keep the title/entry name from the page
+        ## Figured this out: I pass that through the edit() view but assigning initial value!    
+    content = forms.CharField(widget=forms.Textarea)
+
 def edit(request):
-    # For now, just takes to a static "edit" page
-    return render(request, "encyclopedia/edit.html", {
-        "searchbar": SearchBar()
-    })
+    if request.method == "POST":
+        # access the request's title
+        title = request.POST['title']
+        content = str(util.get_entry(title))
+
+        return render(request, "encyclopedia/edit.html", {
+            "title":title, "searchbar": SearchBar(), "editentry":EditEntryForm(initial={
+                "content":content}), "content":content
+        })
+
+def edit_page_return(request, title, content):
+    # This takes in a title and new content, saves over existing content, then renders the page
+    util.save_entry(title, content)
+
+    # I think maybe using HttpResponseRedirect would work better here...?
+    ### Look into how this works...check out the lecutre example and read docs
+    #return HttpResponseRedirect('<str:title>')
 
 def random(request):
     # Takes user to a random page from the current list of entries
