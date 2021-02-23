@@ -44,7 +44,7 @@ def page(request, title):
     # If it's just a normal "GET" request, run this and return the page (or error)
     if title.lower() in [x.lower() for x in util.list_entries()]:
         return render(request, "encyclopedia/page.html", {
-            "page":util.get_entry(title), "title": title,
+            "content":util.get_entry(title), "title": title,
             "searchbar": SearchBar()
         })      
     else:
@@ -58,8 +58,9 @@ def page(request, title):
 class SearchBar(forms.Form):
     # From online forum answer, how to include placeholder text
     ### Look more into the widgets part of forms
-    search = forms.CharField(
-        widget=forms.TextInput(attrs={'placeholder': 'Search Encyclopedia'}))
+    search = forms.CharField(label='',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Search Encyclopedia', 'size':15}))
 
 def search(request):
     ### This will take in a string "search" and then see if that exists in current entries
@@ -108,9 +109,10 @@ def new(request):
 class EditEntryForm(forms.Form):
     # Need to somehow keep the title/entry name from the page
         ## Figured this out: I pass that through the edit() view but assigning initial value!    
+    title = forms.CharField(label="Title")
     content = forms.CharField(widget=forms.Textarea)
 
-def edit(request, title):
+def edit(request):
     if request.method == "POST":
         # access the request's title
         title = request.POST['title']
@@ -118,27 +120,24 @@ def edit(request, title):
 
         return render(request, "encyclopedia/edit.html", {
             "title":title, "searchbar": SearchBar(), "editentry":EditEntryForm(initial={
-                "content":content}), "content":content
+                "content":content, "title":title}), "content":content
         })
 
-def testing(request):
-    return render(request, "encyclopedia/confirm.html")
-
-# Troubleshooting, I keep getting a noreversematch with the arguments error
-def edit_entry_return(request, title, content):
+def confirm(request):
     if request.method == "POST":
         form = EditEntryForm(request.POST)
 
         if form.is_valid():
-            title = title
+            title = form.cleaned_data['title']
             content = form.cleaned_data['content']
 
             util.save_entry(title, content)
 
-        return render(request, 'encyclopedia/confirm.html', {
-            "title":title, "content":content
+            return render(request, 'encyclopedia/confirm.html', {
+                "title":title, "content":content, "searchbar":SearchBar()
             })
-   
+    
+    return render(request, "encyclopedia/confirm.html",)   
 
 def random(request):
     # Takes user to a random page from the current list of entries

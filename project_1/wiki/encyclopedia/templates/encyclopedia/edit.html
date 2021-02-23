@@ -7,15 +7,12 @@
 {% block body %}
     <h1>Edit Entry - {{title}}</h1>
 
-    <!-- Use this one for real, using the below one for testing/troubleshooting
-    <form action="{% url 'edit_entry_return' title=title %}" method="post">
-    -->
-    <form action="{% url 'testing' %}" method="post"></form>
+    <!-- Trying to just submit this back to the edit page-->
+    <form action="{% url 'confirm' %}" method="post">
         {% csrf_token %}
         <!-- Figured it out! See the views.py file edit view. Used an initial value assignment
             that was passed as part of the context to the render() call. -->
         {{ editentry }}
-        <input type="hidden" name="title" value={{title}}>
 
         <button type="submit">Save Entry</button>
     </form>

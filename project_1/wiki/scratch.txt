@@ -46,9 +46,14 @@ Edit Page:
 			into my Form object creation
 		Read more about Django forms too, that could help
 	[X] make the form edit existing contents - 
-	[ ] how to get it to save and then render?
+	[X] how to get it to save and then render?
 		Maybe using HTTPRedirect?
 PICK UP HERE>>>  Need to read more about the reverse and HTTPredirect functions from the examples
+	Let's try this again via a "confirmation" html page
+
+GOT IT! Finally - just used the form data. Didn't need to worry about arguments and stuff in the form header.
+
+Now just need to clean things up a bit (see below) and submit.
 
 
 Random:
@@ -63,7 +68,8 @@ Cleanup stuff:
 	[ ] random
 	[ ] search
 	[ ] new > all need to have the redirected URL show
-[ ] make searchbar fit the <div> area & remove label
+[X] make searchbar fit the <div> area (specify the widget attr "size": #characters)
+	[X] & remove label (set the label parameter to an empty string)
 [ ] is there a more efficient way to use the {{searchbar}} variable in the layout.html file? (right now
 	I am passing it as context in every single view that renders a page)
 [ ] search results: the results are listed in all lowercase, how can I fix that?

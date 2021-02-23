@@ -12,7 +12,8 @@
         <div class="row">
             <div class="sidebar col-lg-2 col-md-3">
                 <h2>Wiki</h2>
-                <!--need to add search funcationality here-->
+
+                <div>
                 <form action="{% url 'search' %}" method="post">
                     {% csrf_token %}
                     {{ searchbar }}
@@ -20,6 +21,7 @@
                     <input class="search" type="text" name="search" placeholder="Search Encyclopedia">
                     -->
                 </form>
+                </div>
                 <div>
                     <a href="{% url 'index' %}">Home</a>
                 </div>

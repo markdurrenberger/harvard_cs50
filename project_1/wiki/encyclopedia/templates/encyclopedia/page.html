@@ -5,14 +5,16 @@
 {% endblock %}
 
 {% block nav %}
-<!-- How to make this include the title?-->
+<!-- Clicking the Edit Page button sends user to Edit view, with the current page
+title and content -->
 <form action="{% url 'edit' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <input type="hidden" name="title" value = {{title}}>
+    <input type="hidden" name="content" value = {{content}}>
     <button type="submit">Edit Page</button>
 </form>
 {% endblock %}
 
 {% block body %}
-    {{page}}
+    {{content}}
 {% endblock %}
