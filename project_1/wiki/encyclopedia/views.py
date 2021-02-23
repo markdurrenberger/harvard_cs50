@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
+# Manybe can delete this one and HTTPredirect if the below one works
+from django.urls import reverse
+from django.shortcuts import redirect
 
 from . import util
 
@@ -45,7 +48,9 @@ def page(request, title):
             "searchbar": SearchBar()
         })      
     else:
-        return render(request, "encyclopedia/error.html")
+        return render(request, "encyclopedia/error.html", {
+            "searchbar":SearchBar()
+        })
 
 
 ### There has to be a better way to include this search on the layout.html without passing the context
@@ -105,7 +110,7 @@ class EditEntryForm(forms.Form):
         ## Figured this out: I pass that through the edit() view but assigning initial value!    
     content = forms.CharField(widget=forms.Textarea)
 
-def edit(request):
+def edit(request, title):
     if request.method == "POST":
         # access the request's title
         title = request.POST['title']
@@ -116,13 +121,24 @@ def edit(request):
                 "content":content}), "content":content
         })
 
-def edit_page_return(request, title, content):
-    # This takes in a title and new content, saves over existing content, then renders the page
-    util.save_entry(title, content)
+def testing(request):
+    return render(request, "encyclopedia/confirm.html")
 
-    # I think maybe using HttpResponseRedirect would work better here...?
-    ### Look into how this works...check out the lecutre example and read docs
-    #return HttpResponseRedirect('<str:title>')
+# Troubleshooting, I keep getting a noreversematch with the arguments error
+def edit_entry_return(request, title, content):
+    if request.method == "POST":
+        form = EditEntryForm(request.POST)
+
+        if form.is_valid():
+            title = title
+            content = form.cleaned_data['content']
+
+            util.save_entry(title, content)
+
+        return render(request, 'encyclopedia/confirm.html', {
+            "title":title, "content":content
+            })
+   
 
 def random(request):
     # Takes user to a random page from the current list of entries
