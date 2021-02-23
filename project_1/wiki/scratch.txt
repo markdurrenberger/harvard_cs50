@@ -61,15 +61,20 @@ Random:
 
 
 Markdown:
-[ ] how to display markdown content as formatted HTML?
+[X] how to display markdown content as formatted HTML?
 
 Cleanup stuff:
-[ ] use redirects to fix the URLs of search and random when user gets sent to new page
-	[ ] random
-	[ ] search
-	[ ] new > all need to have the redirected URL show
+[X] use redirects to fix the URLs of search and random when user gets sent to new page
+	[X] random
+	[X] search
+	[X] new > all need to have the redirected URL show
 [X] make searchbar fit the <div> area (specify the widget attr "size": #characters)
 	[X] & remove label (set the label parameter to an empty string)
+------------------
 [ ] is there a more efficient way to use the {{searchbar}} variable in the layout.html file? (right now
 	I am passing it as context in every single view that renders a page)
-[ ] search results: the results are listed in all lowercase, how can I fix that?
+
+	...there is something called a context processor that would work here....but will leave this for now.
+------------------
+[X] search results: the results are listed in all lowercase, how can I fix that? (use the actual terms, then
+	use .lower() within the checking part, NOT at the beginning bc then it flowed through)

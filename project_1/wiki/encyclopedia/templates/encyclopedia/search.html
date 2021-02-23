@@ -17,7 +17,8 @@
     <ul>
     {% for result in results %}
         <li><a href="{% url 'page' title=result %}">{{ result }}</a></li>
-    </ul>
+    
     {% endfor %}
+    </ul>
 
 {% endblock %}

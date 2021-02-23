@@ -16,5 +16,6 @@ title and content -->
 {% endblock %}
 
 {% block body %}
-    {{content}}
+    {% load md2 %}
+    {{content|markdown}}
 {% endblock %}

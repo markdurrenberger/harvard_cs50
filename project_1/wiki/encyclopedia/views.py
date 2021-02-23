@@ -31,15 +31,12 @@ def page(request, title):
                     "searchbar": SearchBar()
                 })
 
-            # Otherwise, save that entry and then send to that page
+            # Otherwise, save that entry and then redirect to that page
             else:
                 # Use existing util function to save the entry
                 util.save_entry(title, content)
 
-                return render(request, "encyclopedia/page.html", {
-                    'page':util.get_entry(title), "title":title,
-                    "searchbar": SearchBar()
-                })
+                return redirect(f'http://127.0.0.1:8000/{title}')
 
     # If it's just a normal "GET" request, run this and return the page (or error)
     if title.lower() in [x.lower() for x in util.list_entries()]:
@@ -55,6 +52,8 @@ def page(request, title):
 
 ### There has to be a better way to include this search on the layout.html without passing the context
 ### for every single other view
+    ###There is something called a context manager that can be used, but that seems a bit complicated
+    ### for right now. Come back and refactor this part as you continue the course.
 class SearchBar(forms.Form):
     # From online forum answer, how to include placeholder text
     ### Look more into the widgets part of forms
@@ -74,10 +73,7 @@ def search(request):
 
             # if the search results are an entry, return that page
             if search.lower() in [x.lower() for x in util.list_entries()]:
-                return render(request, "encyclopedia/page.html", {
-                    "page":util.get_entry(search), "title":search,
-                    "searchbar": SearchBar()
-                })
+                return redirect(f'http://127.0.0.1:8000/{search}')
 
             # If the search results are NOT an entry
             else:
@@ -85,8 +81,8 @@ def search(request):
                 # then render the search page with that list as the value of a "results" key
                 results = []
 
-                for entry in [x.lower() for x in util.list_entries()]:
-                    if search.lower() in entry:
+                for entry in util.list_entries():
+                    if search.lower() in entry.lower():
                         results.append(entry)
 
                 return render(request, "encyclopedia/search.html", {
@@ -101,7 +97,7 @@ class NewEntryForm(forms.Form):
     }))
 
 def new(request):
-    #For now just renders our blank new entry page
+    # Takes user to new entry page - with a blank form ready to go
     return render(request, "encyclopedia/new.html", {
         "searchbar": SearchBar(), "newentry": NewEntryForm()
     })
@@ -133,9 +129,7 @@ def confirm(request):
 
             util.save_entry(title, content)
 
-            return render(request, 'encyclopedia/confirm.html', {
-                "title":title, "content":content, "searchbar":SearchBar()
-            })
+            return redirect(f'http://127.0.0.1:8000/{title}')
     
     return render(request, "encyclopedia/confirm.html",)   
 
@@ -148,9 +142,7 @@ def random(request):
     # select a random one
     selection = random.choice(entries)
 
-    # render the page view with that entry 
-    return render(request, "encyclopedia/page.html", {
-        "page":util.get_entry(selection), "title":selection, 
-        "searchbar": SearchBar()
-    })
+    # redirect them to the page for the randomly selected item
+    return redirect(f'http://127.0.0.1:8000/{selection}')
+   
         
