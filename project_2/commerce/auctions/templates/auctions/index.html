@@ -1,0 +1,26 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    {% for auction in auctions %}
+        <hr>
+        <a href="{% url 'listing' auction.id %}">Auction #{{auction.id}}: {{ auction.title }}</a><br>
+        <i>Current High Bid: TODO</i><br>
+        
+        {% if auction.image %}
+            <img src="{{ auction.image }}" alt="A Chewed up dog toy">
+        {% endif %}
+        
+        {{ auction.description }}<br>
+
+        {% if auction.category %}
+            <b>Item Category: </b>{{ auction.category }}
+        {% endif %}
+
+        {% empty %}
+        <ul>
+            <li>No Current Listings</li>
+        </ul>
+    {% endfor %}
+    
+{% endblock %}

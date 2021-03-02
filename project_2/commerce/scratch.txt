@@ -1,0 +1,66 @@
+- classes: I have these all set up now, only thing I need to work in somehow is User.watchlist
+	I added this as a manytomany field in auctions....can call User.watchlist to pull up a user's watchlisted items
+- bids: need to tie opening bid into Bid() model, NOT an attribute within auction
+
+I think I can assign the information within the new() view and handle it that way:
+
+To start:
+- i'll use admin panel to create several users and categories
+- I'll create two test items and some bids for them too
+
+--
+If I need to recreate db, do in this order:
+
+users:
+- FinnyFinnFinn
+- Beebes
+- Monster_Man
+
+categories: 
+- Toys
+- Personal Care
+- Furniture
+- Home Goods
+- Hobbies
+
+
+
+auctions:
+- 
+
+
+
+---
+Requirments:
+[X] Models: at least 3 others (Auctions, Bids, Comments)
+	[ ]Auction Image field....this needs to actually return the image
+
+[ ] Create Listing: 
+	[X] link to new page to create a new listing
+	[ ] view that takes in the page's form data and creates a new listing from it
+	>> try using ModelForms
+		[ ] Auction details
+		[ ] Category - have a link to create a new category if they'd like
+		[ ] Username - how to get this into the auction listing
+
+[X] Active Listings page: - this is the default route, lists all the active listings
+	[ ] current high bid
+	[ ] Item Category:
+	[ ] image - same issue as above
+
+[ ] Listing pages
+
+[ ] Watchlist
+
+[ ] Categories
+
+[X] Admin - create a superuser 
+	markd
+	password
+
+
+
+
+[ ] Styling
+	[ ] add placeholder text to the forms
+	[ ] change "categorys" to "categories" in the admin panel

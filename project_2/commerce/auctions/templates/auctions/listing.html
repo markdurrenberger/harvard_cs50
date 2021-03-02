@@ -1,0 +1,9 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h1>Auction #{{ auction.id }}: {{auction.title}}</h1>
+    <i>Current High Bid: TODO</i><hr>
+    
+    {{auction.description}}
+
+{% endblock %}
