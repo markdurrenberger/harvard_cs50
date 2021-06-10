@@ -1,66 +1,184 @@
-- classes: I have these all set up now, only thing I need to work in somehow is User.watchlist
-	I added this as a manytomany field in auctions....can call User.watchlist to pull up a user's watchlisted items
-- bids: need to tie opening bid into Bid() model, NOT an attribute within auction
-
-I think I can assign the information within the new() view and handle it that way:
-
-To start:
-- i'll use admin panel to create several users and categories
-- I'll create two test items and some bids for them too
-
---
-If I need to recreate db, do in this order:
-
-users:
-- FinnyFinnFinn
-- Beebes
-- Monster_Man
-
-categories: 
-- Toys
-- Personal Care
-- Furniture
-- Home Goods
-- Hobbies
+Core fixes:
+[X] error message if bid is less than current price
+[X] fix the category listings page....not working right now
+Add'l (cosmetic) items
+[X] fix the display formatting of prices (always two decimals)
+[ ] put in images? how to do that?
+[ ] CSS styling on django forms
 
 
+6/10 - Comments....build into auction page
+	[X] Display comments on an auctions page
+	[X] create form & view to allow user to add a new comment and put on page (like Bid)
+	[X] add to page & troubleshoot
+    - Add to Watchlist:
+	[X] logic of whether or not something is on user's watchlist
+	[X] form/functionality to add to watchlist - how to add to a manytomanyfield
+		This is the command: In [8]: auction.watchlist.add(user)
 
-auctions:
-- 
+6/7: tried this while Tina was watching TV....not good...need to be able to focus 100%. Wrap this one up this week...
 
+5/24: for the close listing: if user is logged in AND user == auction.user (is the one that created it)
+	close listing is done, including check to make winner (or no winner if no bids)
 
+5/23 - long time off....hunker down this week:
+	Got the categories piece working.
+	...just create a list of all the categories from the objects.value_list() call
+	...created the watchlist page too
+	Now just need to add the final functionality to the listings page....
+		- Comments[DONE]
+		- Close listing[DONE]
+		- Winner notification[DONE]
+		- Add to watchlist (need to make sure they're logged in and this is NOT already on watchlist...if it is say "you're watching this"[DONE]
+		- Error handling part of the bid view (only allow bids if they're higher than current price)[DONE]
+	
 
+5/3 - set up new bidding function
+	...need to add in the error handling of it (make sure its a valid high bid)
+	...then move into creating the watchlist functionlity - an html page and a way to add from listing page
+
+5/2 - got the pricing logic working...needed to add it within the view
+	now ran into an issue trying to set up a modelform and use that to create a new listing....pick up here with reading docs on modelforms
+
+5/1 - got the models up and running and created some through the admin panel to make sure they're working. All seems good!
 ---
-Requirments:
-[X] Models: at least 3 others (Auctions, Bids, Comments)
-	[ ]Auction Image field....this needs to actually return the image
+[X] Models - have at least 3 in addition to users
+	[X] Auction listings 
+	[X] Bids
+	[X] Comments (made on auctions)
 
-[ ] Create Listing: 
-	[X] link to new page to create a new listing
-	[ ] view that takes in the page's form data and creates a new listing from it
-	>> try using ModelForms
-		[ ] Auction details
-		[ ] Category - have a link to create a new category if they'd like
-		[ ] Username - how to get this into the auction listing
+[X] Create Listings - users can visit a page to create a new listing. specify:
+	[X] create html page and link within login wrapper
+	[X] title, text-based description, starting bid
+	[X] (optionally...they can also specify:) URL for an image, category
+		need to assign the user who is logged in as the "user" and status as "active"
+		(look at the example auctions in my admin login....make sure everything is accounted for)
 
-[X] Active Listings page: - this is the default route, lists all the active listings
-	[ ] current high bid
-	[ ] Item Category:
-	[ ] image - same issue as above
+		( ) Add CSS styling to the Modelform to make it look cleaner
 
-[ ] Listing pages
+[X] Active Listings page - default route should take users to a page listing all the active auctions
+	[X] for each active listing display (at minimum):
+		...title, description, current price, and photo (if exists)
+		[X] Need to add the logic for current price
+		
+		( ) Can make the formatting look cooler too
+		( ) Add image too
+		( ) Should I add anything else like the listing user?
 
-[ ] Watchlist
+[ ] Listing pages - clicking on any active listing takes a user to that auctions individual page
+	[X]  page should show all details about the auction (including current price)
 
-[ ] Categories
+	[X] Watchlist - if a user is signed in, they should be able to add the auction to their personal "watchlist"
+	[X] Bids - if user is signed in, they should be able to bid on the item
+		> Need to figure out how to deal with the error handling part of this...
+			....maybe an extra if in the view which would return an error and display a message on teh page?
+>>>>>>>>>>>>>>>>[X] Error - if users bid is less than minimum bid or current bid, gets an error
+	[X] Close Listing - if user is signed in AND created the listing, they should have the option to "close" the listing which 
+		[X] makes the listing no longer active and 
+		[X] makes the current highest bidder the winner
+	[X] Winner notification - if user is signed in and on a closed listing page that they won, a message should specify that
+		(X) on a closed auction page, people can't make further bids, and it says that the auction is closed
+	[X] Comments - signed in users should be able to add comments to listing pages. 
+		[X] all comments should be displayed on a listing's page
 
-[X] Admin - create a superuser 
-	markd
-	password
+[X] Watchlist page - signed in users should be able to visit a Watchlist page that shows all items on their Watchlist
+	if nothing on watchlist...say "nothing on your watchlist"
+
+[X] Categories - users should be able to visit a page that shows a list of all the listing categories
+	[X] Links - clicking the name of any category should take user to a page listing all of the active auctions in that category
+
+[X] Django admin - a site admin should be able to view, edit, add, and delete all listings, comments and bids through the Django admin interface
+
+Final fixes:
+[X] bc of the str:name for category view...i can't get into the admin panel....?
+	>however I fixed the above to get into admin panel...now the show lsitings by categories not working
+[X] Closed listings (the close encounters one) shouldn't appear in the active listings page...right?
+
+
+Cosmetic stuff:
+[X] Fix the bid format on "A surprise"...why so many more than 2 decimal places?
+[ ] CSS styling on the new listing form
+----
+Thoughts on pages:
+
+New Listing page
+	a page for users to create a new auction item
+		specify: title, descripiton & starting bid (required)
+		(optional): URL for an image &/or a category
+		the user's name should also be captured and used to initialize that auction
+
+
+Individual Listing pages
+	clicking on the name of a listing on the main page takes you to its individual page
+		shows all information about the listing, including current price (highest bid) and all comments on that auction
+	If signed in...
+		a button to add that item to their watchlist (or remove from watchlist if already on there)
+		a form to submit a new bid on the item
+			if bid is less than starting bid or current bid return an error message
+			...otherwise, take in the new bid and update the current price of the item on the page
+		a form to add a comment to that page
+	If signed in AND creator of the auction...
+		use has an option to "close" that listing
+		...if that happens, the current high bid is the "winner"
+	If signed in AND auction is closed AND user is the winner....
+		page should display that the user has won that auction (a message at top of listing shoudl suffice)
+
+Watchlist page
+	only a signed in user can visit this page
+	lists all of the auctions on their watchlist (each links to that listing's page)
+
+Categories page
+	any user should be able to visit a page that displays a list of all the categories
+	each category name links to a page showing all active auctions in that category
 
 
 
 
-[ ] Styling
-	[ ] add placeholder text to the forms
-	[ ] change "categorys" to "categories" in the admin panel
+
+
+
+
+
+
+
+
+
+
+
+
+
+5/1 - these pages done for now too
+Default page - Active Listings
+	default route (index) should display all of the currently active listings
+		display: title, description, current price (highest bid) & photo (if it exists)
+		each listing should link to a page for that specific listing
+
+
+
+	
+
+
+5/1 - I think models are done
+Thoughts on models:
+
+Auctions - 
+	X	title
+	X	description
+	X	starting bid
+	X	(optional) URL of an image
+	X	(optional) category of listing (one only)
+	X 	Watchlist(?) - a list of users that have this auction saved on their watchlist
+	X	current price - this would be tied to the related bids somehow
+	X	user - that made the listing
+	X	status - active (default) / closed
+	X	winner - the user than won the auction (for closed auctions only)
+
+Bids - 
+	X	user - that made the bid
+	X	auction - that the bid is tied to
+	X	amount
+
+Comments - 
+	X	user - that made the comment
+	X	auction - 
+	X	description - text field

@@ -1,7 +1,7 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Watchlist</h2>
+    <h2>Category: {{category}}</h2>
 
     {% for auction, price in auctions %}
         <hr>    
@@ -9,10 +9,9 @@
         <!-- auctions is a list of tuples...the first item is the auction object, the second
             is the price (calculated within the python code of the index view) -->
         
-        <b>Current Price:</b> ${{price}} <br>
+        <b>Current Price:</b> ${{price|floatformat:2}} <br>
         <br>
         {{auction.description}}
-    {% empty %}
-            You aren't watching any auctions.
     {% endfor %}
+
 {% endblock %}

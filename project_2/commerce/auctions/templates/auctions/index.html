@@ -2,25 +2,16 @@
 
 {% block body %}
     <h2>Active Listings</h2>
-    {% for auction in auctions %}
-        <hr>
-        <a href="{% url 'listing' auction.id %}">Auction #{{auction.id}}: {{ auction.title }}</a><br>
-        <i>Current High Bid: TODO</i><br>
-        
-        {% if auction.image %}
-            <img src="{{ auction.image }}" alt="A Chewed up dog toy">
-        {% endif %}
-        
-        {{ auction.description }}<br>
 
-        {% if auction.category %}
-            <b>Item Category: </b>{{ auction.category }}
-        {% endif %}
-
-        {% empty %}
-        <ul>
-            <li>No Current Listings</li>
-        </ul>
+    {% for auction, price in auctions %}
+        <hr>    
+        <h4><a href="{% url 'listing' auction.id %}">{{auction.title}}</a></h4>
+        <!-- auctions is a list of tuples...the first item is the auction object, the second
+            is the price (calculated within the python code of the index view) -->
+        
+        <b>Current Price:</b> ${{price|floatformat:2}} <br>
+        <br>
+        {{auction.description}}
     {% endfor %}
     
 {% endblock %}

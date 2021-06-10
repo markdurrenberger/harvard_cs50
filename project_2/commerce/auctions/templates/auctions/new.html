@@ -5,7 +5,8 @@
     <form action="{% url 'new' %}" method="post">
         {% csrf_token %}
         {{ newauction }}
-        <input type="hidden" name="user" value={{user.username}} >
+        <input type="hidden" name="user" value={{user.username}}>
         <input type="submit">
     </form>
+
 {% endblock %}

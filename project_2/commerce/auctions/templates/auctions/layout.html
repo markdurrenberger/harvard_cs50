@@ -22,13 +22,10 @@
             </li>
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'categories' %}">Categories</a>
+                    <a class="nav-link" href="{% url 'new' %}">New Listing</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'watchlist' %}">My Watchlist</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'new' %}">List New Item</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
@@ -41,6 +38,9 @@
                     <a class="nav-link" href="{% url 'register' %}">Register</a>
                 </li>
             {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'categories' %}">Listings By Category</a>
+            </li>
         </ul>
         <hr>
         {% block body %}
