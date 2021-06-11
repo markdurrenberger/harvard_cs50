@@ -289,21 +289,12 @@ def categories(request):
     categories = Auction.objects.all().values_list('category', flat=True)
 
     cats = [x for x in categories if x !='']
+    cats = set(cats)
         
 
     return render(request, "auctions/categories.html", {
         "categories":cats
     })
-
-
-
-
-
-
-
-
-
-
 
 
 

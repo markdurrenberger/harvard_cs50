@@ -15,6 +15,7 @@
 <!--auction is a tuple with (auction object, current price)
 with current price being calculated using python logic in the view-->
 <b>Current Price:</b> ${{auction.1|floatformat:2}}<br>
+<hr>
 {% if not auction.0 in watchlist %}
     <i>You're not watching this item</i><br>
     <b>Watch This Item: </b>
