@@ -265,7 +265,7 @@ def watchlist(request):
 
 def category(request, category):
     ### This returns the page that lists all the auctions in a given category
-    auctions = Auction.objects.filter(category=category)
+    auctions = Auction.objects.filter(category=category).filter(status="A")
     prices = []
 
     for auction in auctions:
