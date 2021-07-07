@@ -1,0 +1,71 @@
+7/8: I've got the basics working: can send emails, load mailboxes and view individual emails.
+
+The next level stuff is next: archive/unarchive, read/unread, reply button and pre-populated form
+---
+7/7: 
+starting over from scratch. Really got stuck and was getting myself down into a rabbit hole.
+This is attempt #2...if I can't get it after 3 I'm going to call it a day and move on. It's getting a bit away from the things I'm currently working on...though that's not always a bad thing.
+
+Users (all @beebes.com):
+-mark
+-tina
+-finn
+
+Emails sent:
+Finn > Mark x1
+Finn > Tina x1
+Mark > Finn x2
+
+[X] The compose form successfully makes a POST API call to send the contents as an email and then redirects the user to their SENT email box.
+
+[X] The inbox is successfully loading emails now too. I must have broken something when I created the superuser and was messing around in there. Regardless....I've now got Finn's inbox loading the emails from Mark!
+
+[X] Can view the individual email details now too!! Awesome.
+
+[X] Emails marked read when i view them....need to add two buttons:
+	1 - archive (basically...make this is archive:false
+	2 - reply....how to make this work
+	[X] buttons added....need to make them functional
+	[X] DONE! I lied...need to make it so the archive buttons don't appear in the sent email box
+		[X] archive
+		[ ] reply > for some reason the eventlistener click i'm trying to add won't do anything. Weird bc i set it up the same way as the others...
+
+	Within the archive view...have button to unarchive
+
+[ ] The archive/unarchive stuff is working - but it's loading the inbox too fast so that the emails aren't showing up in the right spot unless you refresh the browser...
+....this seems like it will be a real bear to fix. Try submitting the project without bothering to fix this and see if it works.
+---
+Overall stuff to do:
+
+[X] Send mail - 
+	POST request to /emails, using JS
+	pass values for recipients, subject and body
+	[X]after email is sent...load the user's sent mailbox
+
+[X] Mailbox - 
+	load the appropriate mailbox for a user: inbox, sent or archive
+	use GET to /emails/<mailbox>
+	[X] each email should render in its own box (a <div>), display:
+		[X] who its from
+		[X] subject line
+		[X] timestamp
+	[X] background: white if unread, gray if read
+
+[X] View Email - 
+	[X] show sender, recipients, subject, timestamp and body
+	[X] add a new <div> to index.html for displaying email - use JS to show/hide as 		necessary
+	[X] when clicked, the email should be marked as read
+		use PUT to /emails/<email_id>
+
+[X] Archive/Unarchive - 
+	[X] when viewing an inbox email, there should be a button to archive
+	[X] when viewing an archive email, button to unarchive
+		use PUT to /emails/<email_id> for this too
+
+[ ] Reply - 
+	[ ] when viewing an email, there should be a reply button
+		[ ]clicking it takes user to email form with recipient pre-filled
+		[ ] pre-fill subject line too "Re: subject"
+			[ ] don't duplicate "Re:"s....so if already Re:...leave as is
+		[ ] pre-fill body with a timestamp like line: like this:
+			"On Jan 1 2020, 12:00 AM foo@example.com wrote:" followed by original 			email text
