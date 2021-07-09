@@ -28,9 +28,6 @@ function compose_email() {
     const subject = document.querySelector('#compose-subject').value;
     const body = document.querySelector('#compose-body').value;
 
-    //Testing - this worked...I am getting the form data
-    //console.log(`${recipients} ${subject} ${body}`)
-
     // Use the form data to make an API POST content of form to an email
     fetch('/emails', {
       method: 'POST',
@@ -118,23 +115,22 @@ function get_email(email_id) {
       document.querySelector('#ind-email-view').innerHTML += `<b>Subject: </b>${email.subject}<br>`;
       document.querySelector('#ind-email-view').innerHTML += `<b>Timestamp: </b>${email.timestamp}<br><hr>`;
 
-      // Create reply button
-      var reply = document.createElement('button');
-      reply.innerHTML = "Reply";
-      document.querySelector('#ind-email-view').appendChild(reply);
-      reply.addEventListener('click', () => {
-        console.log('button clicked');
-      });
       // display email body
       document.querySelector('#ind-email-view').innerHTML += `<br><br>${email.body}<br><br>`;
 
-// For the two ifs below...need to add in "and if user is not the sender"
-      // Check if I can get the request.user in the console
-      //Try getting the user id
-      var user = document.querySelector('#user').innerHTML;
-      console.log(user);
+      // Define user var for screening archive/unarchive buttons
+      const user = document.querySelector('#user').innerHTML
+      
       // Only show the archive buttons below if the user is not the sender
       if (user !== email.sender) {
+        
+        // Create a reply button
+        var reply = document.createElement('button');
+        reply.innerHTML = "Reply";
+        document.querySelector('#ind-email-view').appendChild(reply);
+        reply.addEventListener('click', () => {
+          email_reply(email);
+        });
 
         // Create button to archive emails if not already archived
         if (email.archived === false) {
@@ -142,7 +138,7 @@ function get_email(email_id) {
         archive.innerHTML = "Archive";
         document.querySelector('#ind-email-view').appendChild(archive)
         archive.addEventListener('click', () => {
-          archive_email(email);     
+          archive_email(email);    
         });
         };
       
@@ -187,15 +183,50 @@ function unarchive_email(email) {
 }
 
 function email_reply(email){
-    console.log('button clicked')
     // Show compose view and hide other views
     document.querySelector('#emails-view').style.display = 'none';
     document.querySelector('#compose-view').style.display = 'block';
     document.querySelector('#ind-email-view').style.display = 'none';
 
+    // Get the email field values
+    var recipient = email.sender;
+    if (email.subject.substring(0,4)==='Re: ') {
+      var subject = email.subject;
+    } else {
+      var subject = `Re: ${email.subject}`
+    };
+    var body = `\nOn ${email.timestamp} ${email.sender} wrote: ${email.body}`;
+    
     // Pre-fill to: input with the email sender
+    document.querySelector('#compose-recipients').value = recipient;
+    document.querySelector('#compose-subject').value = subject;
+    document.querySelector('#compose-body').value = body;
+
+     // When user submits form, get the form data
+    document.querySelector('#compose-form').onsubmit = function() {
+      recipients = document.querySelector('#compose-recipients').value;
+      subject = document.querySelector('#compose-subject').value;
+      body = document.querySelector('#compose-body').value;
+
+    // Use the form data to make an API POST content of form to an email
+    fetch('/emails', {
+      method: 'POST',
+      body: JSON.stringify({
+        recipients: recipients,
+        subject: subject,
+        body: body
+      })
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result)
+    })
+    //Need to put the as a .then so it waits to the email is sent before loading
+    .then(load_mailbox('sent'));    
+
+    // So the form doesn't actually resubmit the page request
+    return false;
+  };
 
 }
-  // For testing...the line below would add to the html...the 2nd line woudl replace the html
-  //document.querySelector('#emails-view').append("Testing");
-  //" "('#emails-view').innerHTML = "Testing"
+

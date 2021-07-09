@@ -29,11 +29,13 @@ Mark > Finn x2
 	[X] DONE! I lied...need to make it so the archive buttons don't appear in the sent email box
 		[X] archive
 		[ ] reply > for some reason the eventlistener click i'm trying to add won't do anything. Weird bc i set it up the same way as the others...
+		[ ] W/F answers to my stackoverflow question
 
 	Within the archive view...have button to unarchive
 
 [ ] The archive/unarchive stuff is working - but it's loading the inbox too fast so that the emails aren't showing up in the right spot unless you refresh the browser...
 ....this seems like it will be a real bear to fix. Try submitting the project without bothering to fix this and see if it works.
+> could try using an eventhandler 'load' and putting the load_mailbox in that...found that idea in a forum answer
 ---
 Overall stuff to do:
 
@@ -62,10 +64,10 @@ Overall stuff to do:
 	[X] when viewing an archive email, button to unarchive
 		use PUT to /emails/<email_id> for this too
 
-[ ] Reply - 
-	[ ] when viewing an email, there should be a reply button
-		[ ]clicking it takes user to email form with recipient pre-filled
-		[ ] pre-fill subject line too "Re: subject"
-			[ ] don't duplicate "Re:"s....so if already Re:...leave as is
-		[ ] pre-fill body with a timestamp like line: like this:
+[X] Reply - 
+	[X] when viewing an email, there should be a reply button
+		[X]clicking it takes user to email form with recipient pre-filled
+		[X] pre-fill subject line too "Re: subject"
+			[X] don't duplicate "Re:"s....so if already Re:...leave as is
+		[X] pre-fill body with a timestamp like line: like this:
 			"On Jan 1 2020, 12:00 AM foo@example.com wrote:" followed by original 			email text
